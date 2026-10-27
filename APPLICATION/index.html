@@ -1,0 +1,253 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI/CD Pipeline Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-icon">⚙</div>
+            <div>
+                <h1>Pipeline<span>Flow</span></h1>
+                <p>CI/CD AUTOMATION DASHBOARD</p>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <span class="connection-status">
+                <span class="pulse"></span>
+                LOCAL ENVIRONMENT
+            </span>
+            <div class="avatar">KK</div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="page-heading">
+            <div>
+                <p class="eyebrow">DEVOPS / AUTOMATION</p>
+                <h2>Deployment Overview</h2>
+                <p class="subtitle">
+                    Visualize your GitHub, Jenkins, and Docker workflow.
+                </p>
+            </div>
+
+            <button id="runPipeline" class="run-button">
+                <span>▶</span> Run Pipeline
+            </button>
+        </section>
+
+        <section class="stats-grid">
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>PIPELINE STATUS</span>
+                    <span class="stat-icon green">↗</span>
+                </div>
+                <h3 id="pipelineStatus">Idle</h3>
+                <p>Current execution</p>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>BUILD NUMBER</span>
+                    <span class="stat-icon blue">#</span>
+                </div>
+                <h3 id="buildNumber">#104</h3>
+                <p>Latest simulated build</p>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>PIPELINE STAGES</span>
+                    <span class="stat-icon purple">▤</span>
+                </div>
+                <h3 id="stageCount">0 / 6</h3>
+                <p>Stages completed</p>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>EXECUTION TIME</span>
+                    <span class="stat-icon orange">◷</span>
+                </div>
+                <h3 id="executionTime">00:00</h3>
+                <p>Current run duration</p>
+            </article>
+        </section>
+
+        <section class="panel pipeline-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <h3>CI/CD Pipeline</h3>
+                    <p>From source code to a running container</p>
+                </div>
+
+                <span class="branch-badge">⑂ main</span>
+            </div>
+
+            <div class="pipeline-progress">
+                <div id="progressBar"></div>
+            </div>
+
+            <div class="pipeline" id="pipeline">
+
+                <article class="stage" data-stage="0">
+                    <div class="stage-icon github-icon">
+                        <span>GH</span>
+                    </div>
+                    <div class="stage-number">01</div>
+                    <h4>GitHub</h4>
+                    <p>Checkout source</p>
+                    <span class="stage-status">Pending</span>
+                </article>
+
+                <div class="connector"><span>→</span></div>
+
+                <article class="stage" data-stage="1">
+                    <div class="stage-icon jenkins-icon">
+                        <span>J</span>
+                    </div>
+                    <div class="stage-number">02</div>
+                    <h4>Jenkins</h4>
+                    <p>Initialize build</p>
+                    <span class="stage-status">Pending</span>
+                </article>
+
+                <div class="connector"><span>→</span></div>
+
+                <article class="stage" data-stage="2">
+                    <div class="stage-icon test-icon">
+                        <span>✓</span>
+                    </div>
+                    <div class="stage-number">03</div>
+                    <h4>Test</h4>
+                    <p>Validate code</p>
+                    <span class="stage-status">Pending</span>
+                </article>
+
+                <div class="connector"><span>→</span></div>
+
+                <article class="stage" data-stage="3">
+                    <div class="stage-icon docker-icon">
+                        <span>▤</span>
+                    </div>
+                    <div class="stage-number">04</div>
+                    <h4>Docker</h4>
+                    <p>Build image</p>
+                    <span class="stage-status">Pending</span>
+                </article>
+
+                <div class="connector"><span>→</span></div>
+
+                <article class="stage" data-stage="4">
+                    <div class="stage-icon registry-icon">
+                        <span>⇧</span>
+                    </div>
+                    <div class="stage-number">05</div>
+                    <h4>Docker Hub</h4>
+                    <p>Push image</p>
+                    <span class="stage-status">Pending</span>
+                </article>
+
+                <div class="connector"><span>→</span></div>
+
+                <article class="stage" data-stage="5">
+                    <div class="stage-icon deploy-icon">
+                        <span>⌘</span>
+                    </div>
+                    <div class="stage-number">06</div>
+                    <h4>Deploy</h4>
+                    <p>Run container</p>
+                    <span class="stage-status">Pending</span>
+                </article>
+
+            </div>
+
+            <div class="pipeline-footer">
+                <span>Pipeline definition: <strong>Jenkinsfile</strong></span>
+                <span>Container definition: <strong>Dockerfile</strong></span>
+                <span>Target: <strong>localhost:8080</strong></span>
+            </div>
+
+        </section>
+
+        <section class="bottom-grid">
+
+            <div class="panel logs-panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Build Console</h3>
+                        <p>Pipeline execution output</p>
+                    </div>
+                    <button id="clearLogs" class="text-button">Clear logs</button>
+                </div>
+
+                <div class="console" id="console">
+                    <div class="console-line muted">
+                        <span>[SYSTEM]</span>
+                        Waiting for pipeline execution...
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel deployment-panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Deployment Target</h3>
+                        <p>Local Docker environment</p>
+                    </div>
+                    <span id="deploymentBadge" class="badge offline">OFFLINE</span>
+                </div>
+
+                <div class="deployment-content">
+                    <div class="server-icon">▣</div>
+                    <div>
+                        <h4>Web Application</h4>
+                        <p>Docker container</p>
+                    </div>
+                </div>
+
+                <div class="deployment-details">
+                    <div>
+                        <span>Container</span>
+                        <strong id="containerName">web-app</strong>
+                    </div>
+                    <div>
+                        <span>Image</span>
+                        <strong>web-app:latest</strong>
+                    </div>
+                    <div>
+                        <span>Port mapping</span>
+                        <strong>8080:80</strong>
+                    </div>
+                </div>
+
+                <button id="openApp" class="open-button" disabled>
+                    Open Application ↗
+                </button>
+
+                <p class="deployment-note">
+                    Demo mode: deployment is simulated.
+                </p>
+            </div>
+
+        </section>
+
+        <footer>
+            <span>PipelineFlow · DevOps Learning Project</span>
+            <span>GitHub → Jenkins → Docker → Deployment</span>
+        </footer>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+```
